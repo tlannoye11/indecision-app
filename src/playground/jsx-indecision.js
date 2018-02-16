@@ -10,18 +10,17 @@ const onFormSubmit = (e) => {
   e.preventDefault();
 
   const option = e.target.elements.option.value;
-  console.log('option: ', option);
 
   if (option) {
     app.options.push(option);
     e.target.elements.option.value = '';
-    renderOptions();
+    render();
   }
-}
+};
 
 const onRemoveAll = () => {
   app.options = [];
-  renderOptions();
+  render();
 };
 
 const onMakeDecision = () => {
@@ -32,7 +31,7 @@ const onMakeDecision = () => {
 
 const appRoot = document.getElementById('app');
 
-const renderOptions = () => {
+const render = () => {
   const template = (
     <div>
       <h1>{app.title}</h1>
@@ -42,19 +41,17 @@ const renderOptions = () => {
       <button onClick={onRemoveAll}>Remove All</button>
       <ol>
         {
-          app.options.map((option) => {
-            return <li key={option}>{option}</li>
-          })
+          app.options.map((option) => <li key={option}>{option}</li>)
         }
       </ol>
       <form onSubmit={onFormSubmit}>
-        <input type="text" name="option"/>
+        <input type="text" name="option" />
         <button>Add Option</button>
       </form>
     </div>
   );
-  
+
   ReactDOM.render(template, appRoot);
 };
 
-renderOptions();
+render();
